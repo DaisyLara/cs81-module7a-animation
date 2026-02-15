@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Animation Simulator</title>
+</head>
+<body style="font-family: monospace; text-align: center; padding-top: 100px; background-color: #f4f4f4;">
+    <!-- div classes below are creating containers for elements with ids loader and status -->
+  <div id="loader" style="font-size: 2rem; margin-bottom: 20px;">Loading...</div> 
+  <div id="status">Please wait</div>
+
+<!-- function runLoading animation is defining loader and status elements above, and determining what they will do -->
+<script>
+    function runLoadingAnimation() {
+      const loader = document.getElementById("loader");
+      const status = document.getElementById("status");
+//the frames array and subsequent index, cycleCount, and maxCycles functions are designing what the different "loading" screens will be
+      const frames = ["⏳", "⌛", ".", "..", "..."]; // creates the illusion of the hourglass actually moving
+      let index = 0; //
+      let cycleCount = 0;
+      const maxCycles = 10;
+// the interval function is defining how the looping will work to switch between the frames above
+      const interval = setInterval(() => {
+        loader.textContent = frames[index % frames.length]; // this shortcut creates an infinite loop using the modulo operator
+        index++;
+        if (index % frames.length === 0) { //if the index of the frames array is the exact value 0, then the cycles keep looping
+          cycleCount++;
+        }
+        if (cycleCount >= maxCycles) { //if the cycleCount reaches maxCycles (10), then this condition is met 
+          clearInterval(interval); // the interval function is cleared and the cycles are interrupted
+          loader.textContent = "✅";
+          status.textContent = "Done!";
+        }
+      }, 500); // code waits 500ms between each item in the frames array
+    }
+
+    runLoadingAnimation();
+  </script>
+
+</body>
+</html>
